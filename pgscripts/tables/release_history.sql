@@ -1,7 +1,7 @@
 create table RELEASE_HISTORY (
 id serial primary key,
 release_name varchar(50) unique not null,
-release_file bytea,
+release_file bytea not null,
 timestamp TIMESTAMP
 );
 
