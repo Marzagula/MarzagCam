@@ -1,4 +1,4 @@
-package com.marzag.raspberrymanager.model;
+package com.marzag.raspberrymanager.dto;
 
 import java.util.Date;
 

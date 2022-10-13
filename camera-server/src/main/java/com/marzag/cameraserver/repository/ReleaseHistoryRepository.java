@@ -9,4 +9,6 @@ public interface ReleaseHistoryRepository extends Repository<ReleaseHistory, Lon
 
     public ReleaseHistory findTopByOrderByIdDesc();
 
+    public ReleaseHistory findReleaseHistoryByReleaseName(String releaseName);
+
 }
