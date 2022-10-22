@@ -19,19 +19,15 @@ public class FileManager {
     private RestTemplate template = new RestTemplate();
 
     @Autowired
-    EurekaClient eurekaClient;
+    EurekaHandler eurekaHandler;
 
     public ReleaseHistory loadNewestRelease() throws IOException {
-        String rootPath  = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-
-        Properties properties = new Properties();
-        FileReader fileReader = new FileReader(rootPath+"application.properties");
-        properties.load(fileReader);
+        CameraProperties properties = new CameraProperties();
         String ownerId = properties.getProperty("camera.ownerId");
         String cameraId = properties.getProperty("camera.cameraId");
 
-        Camera camera = template.getForEntity(urlFromFirstAvailableInstance("CAMERA-SERVER")+"/getCameraByOwnerIdAndCameraId?ownerId="+ownerId+"&cameraId="+cameraId,Camera.class).getBody();
-        ReleaseHistory releaseHistory = template.getForEntity(urlFromFirstAvailableInstance("CAMERA-SERVER")+"/getNewestRelease",ReleaseHistory.class).getBody();
+        Camera camera = template.getForEntity(eurekaHandler.urlFromFirstAvailableInstance("CAMERA-SERVER")+"/getCameraByOwnerIdAndCameraId?ownerId="+ownerId+"&cameraId="+cameraId,Camera.class).getBody();
+        ReleaseHistory releaseHistory = template.getForEntity(eurekaHandler.urlFromFirstAvailableInstance("CAMERA-SERVER")+"/getNewestRelease",ReleaseHistory.class).getBody();
         byte [] byteFromFile = releaseHistory.getReleaseFile();
         try {
             String filePath = camera.getApplicationPath()+"/"+camera.getApplicationVersion();
@@ -49,23 +45,10 @@ public class FileManager {
         }
         camera.setApplicationVersion(releaseHistory.getReleaseName());
 
-        template.put(urlFromFirstAvailableInstance("CAMERA-SERVER")+"/updateCamera",camera,Camera.class);
+        template.put(eurekaHandler.urlFromFirstAvailableInstance("CAMERA-SERVER")+"/updateCamera",camera,Camera.class);
         return releaseHistory;
     }
 
-    private String urlFromFirstAvailableInstance(String appName){
 
-        String url = "";
-        int cameraServiceIndex = 0;
-        List<InstanceInfo> instances = eurekaClient.getApplication(appName).getInstances();
-        for (InstanceInfo cameraServiceInstance:instances) {
-            try {
-                url = eurekaClient.getApplication(appName).getInstances().get(cameraServiceIndex).getHomePageUrl();
-            }catch (NullPointerException e){
-                cameraServiceIndex++;
-            }
-        }
-        return url;
-    }
 
 }
