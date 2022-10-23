@@ -1,10 +1,10 @@
-package com.marzagcam.authservice.authserviceserver;
+package com.marzagcam.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuthserviceserverApplicationTests {
+class UserServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

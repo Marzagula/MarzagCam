@@ -5,11 +5,11 @@ create SEQUENCE public.users_id_seq
     MINVALUE 1
     MAXVALUE 999999;
 
-drop table if exists public.users
+drop table if exists public.users;
 create table users (
-id serial primary key,
+id integer default nextval('users_id_seq') primary key,
 email varchar(200) not null,
 username varchar(50),
 password varchar(50) not null,
-role varchar(20) not null,
+role varchar(20) not null
 );
