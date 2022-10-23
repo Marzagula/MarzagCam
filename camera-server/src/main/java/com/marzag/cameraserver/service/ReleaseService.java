@@ -55,4 +55,7 @@ public class ReleaseService {
     public Camera updateCamera(Camera camera){
         return cameraRepository.save(camera);
     }
+    public Camera registerCamera(Camera camera) {
+        return cameraRepository.save(camera);
+    }
 }

@@ -39,4 +39,9 @@ public class Controller {
     public ResponseEntity updateCamera(@RequestBody Camera camera){
         return ResponseEntity.ok(releaseService.updateCamera(camera));
     }
+
+    @PostMapping("/registerCamera")
+    public ResponseEntity registerCamera(@RequestBody Camera camera){
+        return ResponseEntity.ok(releaseService.registerCamera(camera));
+    }
 }

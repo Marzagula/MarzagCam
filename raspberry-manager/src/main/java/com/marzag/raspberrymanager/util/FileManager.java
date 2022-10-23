@@ -50,5 +50,27 @@ public class FileManager {
     }
 
 
+    public void createNewFile( String fileName, InputStream fileContent){
+        try {
+            String filePath = "D:/smietnik/logs/"+fileName;
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+            InputStreamReader inputStreamReader= new InputStreamReader(fileContent);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String outputString = "";
+
+            String ln = "";
+            while ((ln = bufferedReader.readLine())!= null){
+                outputString += ln + "\n";
+            }
+            fileOutputStream.write(outputString.getBytes());
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
