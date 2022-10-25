@@ -28,24 +28,19 @@ public class Controller {
         return ResponseEntity.ok(release);
     }
 
-    @GetMapping("/stopCamera")
-    public ResponseEntity stopCamera(){
-        return null;
-    }
-
     @GetMapping("/startCamera")
-    public ResponseEntity startCamera() throws IOException {
+    public ResponseEntity startCamera() throws Exception {
         return ResponseEntity.ok(processManager.startCamera());
     }
 
     @GetMapping("/restartCamera")
-    public ResponseEntity restartCamera(){
-        return null;
+    public ResponseEntity restartCamera() throws Exception {
+        return ResponseEntity.ok(processManager.restartCamera());
     }
 
-    @PostMapping("/killProcess")
-    public ResponseEntity killProcess(@RequestBody String PID) throws IOException {
-        return ResponseEntity.ok(processManager.killProcess(PID));
+    @GetMapping("/stopCamera")
+    public ResponseEntity stopCamera() throws Exception {
+        return ResponseEntity.ok(processManager.shutDownCamera());
     }
 
 }

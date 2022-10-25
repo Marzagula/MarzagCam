@@ -20,7 +20,7 @@ public class Camera {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId){
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 

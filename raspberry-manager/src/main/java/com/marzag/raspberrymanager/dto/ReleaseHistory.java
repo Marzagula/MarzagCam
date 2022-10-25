@@ -10,13 +10,15 @@ public class ReleaseHistory {
     Date timestamp;
 
 
-    public ReleaseHistory(){};
+    public ReleaseHistory() {
+    }
 
-    public ReleaseHistory(String releaseName, byte [] releaseFile){
+    public ReleaseHistory(String releaseName, byte[] releaseFile) {
         this.releaseName = releaseName;
         this.releaseFile = releaseFile;
     }
-    public ReleaseHistory(Long id, String releaseName, byte [] releaseFile){
+
+    public ReleaseHistory(Long id, String releaseName, byte[] releaseFile) {
         this.id = id;
         this.releaseName = releaseName;
         this.releaseFile = releaseFile;
