@@ -8,13 +8,18 @@ import java.util.Properties;
 public class CameraProperties extends Properties {
 
     public CameraProperties() {
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(rootPath + "application.properties");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        try{
+            fileReader = new FileReader("/home/MarzagCam/" + "raspberry-manager.config");
+        } catch (FileNotFoundException ex) {
+            try {
+                String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+                fileReader = new FileReader(rootPath + "application.properties");
+            } catch (FileNotFoundException ex2) {
+                ex2.printStackTrace();
+            }
         }
+
         try {
             this.load(fileReader);
         } catch (IOException e) {

@@ -24,8 +24,11 @@ public class ProcessManager {
     long cameraClientPID = -1l;
 
     public String killProcess(long PID) throws IOException {
-
-        String cmd = "taskkill /F /PID " + PID;
+        String cmd;
+        if(System.getProperty("os.name").equals("Linux"))
+            cmd = "kill -9 " + PID;
+        else
+            cmd = "taskkill /F /PID " + PID;
         Runtime.getRuntime().exec(cmd);
         cameraClientPID = -1l;
         return "Process has been killed.";
