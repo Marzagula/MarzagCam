@@ -12,9 +12,7 @@ import java.io.*;
 
 @Service
 public class ProcessManager {
-
-    static final Logger log = LoggerFactory.getLogger(RaspberryManagerApplication.class);
-
+    
     @Autowired
     EurekaHandler eurekaHandler;
 
