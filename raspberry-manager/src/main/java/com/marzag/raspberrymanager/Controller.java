@@ -33,14 +33,21 @@ public class Controller {
         return ResponseEntity.ok(processManager.startCamera());
     }
 
+    @GetMapping("/stopCamera")
+    public ResponseEntity stopCamera() throws Exception {
+        return ResponseEntity.ok(processManager.shutDownCamera());
+    }
+
     @GetMapping("/restartCamera")
     public ResponseEntity restartCamera() throws Exception {
         return ResponseEntity.ok(processManager.restartCamera());
     }
 
-    @GetMapping("/stopCamera")
-    public ResponseEntity stopCamera() throws Exception {
-        return ResponseEntity.ok(processManager.shutDownCamera());
+    @GetMapping("/forceStopCamera")
+    public ResponseEntity forceStopCamera() throws Exception {
+        return ResponseEntity.ok(processManager.forceShutDownCamera());
     }
+
+
 
 }

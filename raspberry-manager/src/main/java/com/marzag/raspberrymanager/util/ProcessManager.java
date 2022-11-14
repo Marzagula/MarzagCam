@@ -1,9 +1,6 @@
 package com.marzag.raspberrymanager.util;
 
-import com.marzag.raspberrymanager.RaspberryManagerApplication;
 import com.marzag.raspberrymanager.dto.Camera;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +19,17 @@ public class ProcessManager {
     RestTemplate restTemplate = new RestTemplate();
 
     long cameraClientPID = -1l;
+
+    public String terminateProcess(long PID) throws IOException {
+        String cmd;
+        if(System.getProperty("os.name").equals("Linux"))
+            cmd = "kill -1 " + PID;
+        else
+            cmd = "taskkill /PID " + PID;
+        Runtime.getRuntime().exec(cmd);
+        cameraClientPID = -1l;
+        return "Process has been killed.";
+    }
 
     public String killProcess(long PID) throws IOException {
         String cmd;
@@ -66,12 +74,18 @@ public class ProcessManager {
     public String shutDownCamera() throws Exception {
         if (cameraClientPID == -1l)
             throw new Exception("Camera is already turned off.");
+        return terminateProcess(cameraClientPID);
+    }
+
+    public String forceShutDownCamera() throws Exception {
+        if (cameraClientPID == -1l)
+            throw new Exception("Camera is already turned off.");
         return killProcess(cameraClientPID);
     }
 
     public String restartCamera() throws Exception {
         if (cameraClientPID != -1)
-            shutDownCamera();
+            forceShutDownCamera();
         startCamera();
         return "Camera has been restarted.";
     }
