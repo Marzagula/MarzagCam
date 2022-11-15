@@ -17,7 +17,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #VERYLONG}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum Exposure {
 

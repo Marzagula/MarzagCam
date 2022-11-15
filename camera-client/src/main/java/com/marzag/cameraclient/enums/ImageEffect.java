@@ -28,7 +28,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #WHITEBOARD}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum ImageEffect {
 

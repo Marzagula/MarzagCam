@@ -15,7 +15,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #HORIZON}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum AWB {
 

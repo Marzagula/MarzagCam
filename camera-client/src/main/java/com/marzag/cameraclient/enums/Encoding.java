@@ -9,7 +9,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #PNG}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum Encoding {
 

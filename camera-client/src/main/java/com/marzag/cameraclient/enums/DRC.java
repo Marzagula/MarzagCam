@@ -9,7 +9,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #HIGH}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum DRC {
 

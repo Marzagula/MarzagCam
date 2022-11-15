@@ -9,7 +9,6 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #MATRIX}</li>
  * </ul>
  *
- * @author Andrew Dillon
  */
 public enum MeteringMode {
 

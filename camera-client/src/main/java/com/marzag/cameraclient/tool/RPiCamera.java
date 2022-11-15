@@ -37,7 +37,6 @@ import java.util.*;
  * }
  * </pre>
  *
- * @author Andrew Dillon
  */
 public class RPiCamera {
 
