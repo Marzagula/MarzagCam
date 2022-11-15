@@ -8,24 +8,24 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #GIF}</li>
  * <li>{@link #PNG}</li>
  * </ul>
- * 
+ *
  * @author Andrew Dillon
  */
 public enum Encoding {
-	
-	JPG,
-	
-	BMP,
-	
-	GIF,
-	
-	PNG;
-	
-	/**
-	 * Returns the enum in lowercase.
-	 */
-	public String toString() {
-		String id = name();
-		return id.toLowerCase();
-	}
+
+    JPG,
+
+    BMP,
+
+    GIF,
+
+    PNG;
+
+    /**
+     * Returns the enum in lowercase.
+     */
+    public String toString() {
+        String id = name();
+        return id.toLowerCase();
+    }
 }

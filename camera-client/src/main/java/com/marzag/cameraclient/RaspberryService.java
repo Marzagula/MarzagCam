@@ -1,9 +1,9 @@
 package com.marzag.cameraclient;
 
-import com.marzag.cameraclient.enums.Exposure;
-import com.marzag.cameraclient.util.GpioHandler;
-import com.marzag.cameraclient.util.RPiCamera;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.marzag.cameraclient.exceptions.FailedToRunRaspistillException;
+import com.marzag.cameraclient.util.CameraHandler;
+import com.marzag.cameraclient.util.DetectorRunnable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,25 +12,30 @@ import java.util.Date;
 @Service
 public class RaspberryService {
 
-    public String takePhoto() throws com.hopding.jrpicam.exceptions.FailedToRunRaspistillException, IOException, InterruptedException {
-        String pictureName=new Date().toString()+".jpeg";
-        if(System.getProperty("os.name").equals("Linux")) {
-            RPiCamera rPiCamera = new RPiCamera("/home/MarzagCam/camera-client/captured-photos");
-            rPiCamera.setWidth(1920).setHeight(1080)
-                    .setBrightness(50)
-                    .setExposure(Exposure.AUTO)
-                    .setTimeout(2)
-                    .setAddRawBayer(true);
+    @Autowired
+    CameraHandler cameraHandler;
 
-        GpioHandler gpioHandler = new GpioHandler();
-        gpioHandler.init();
+    DetectorRunnable runnable;
+    Thread thread;
 
-        pictureName=new Date().toString()+".jpeg";
 
-        rPiCamera.takeStill(pictureName);
-        }else
-            pictureName="Can't take photo on Windows";
+    public void stopDetecting() {
+        runnable.stop();
+    }
+
+
+    public String takePhoto() throws FailedToRunRaspistillException, IOException, InterruptedException {
+        String pictureName = "Manual " + new Date().toString() + ".jpeg";
+        cameraHandler.takePhoto(pictureName);
         return pictureName;
     }
+
+    public void startDetecting() {
+        runnable = new DetectorRunnable();
+        thread = new Thread(runnable);
+        runnable.start();
+        thread.start();
+    }
+
 
 }

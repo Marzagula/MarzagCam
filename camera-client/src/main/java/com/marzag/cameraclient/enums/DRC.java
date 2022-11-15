@@ -8,23 +8,24 @@ package com.marzag.cameraclient.enums;
  * <li>{@link #MEDIUM}</li>
  * <li>{@link #HIGH}</li>
  * </ul>
+ *
  * @author Andrew Dillon
  */
 public enum DRC {
-	
-	OFF,
-	
-	LOW,
-	
-	MEDIUM,
-	
-	HIGH;
-	
-	/**
-	 * Returns enum as lowercase.
-	 */
-	public String toString() {
-		String id = name();
-		return id.toLowerCase();
-	}
+
+    OFF,
+
+    LOW,
+
+    MEDIUM,
+
+    HIGH;
+
+    /**
+     * Returns enum as lowercase.
+     */
+    public String toString() {
+        String id = name();
+        return id.toLowerCase();
+    }
 }

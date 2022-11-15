@@ -1,7 +1,7 @@
-package com.marzag.cameraclient.util;
+package com.marzag.cameraclient.tool;
 
-import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
 import com.marzag.cameraclient.enums.*;
+import com.marzag.cameraclient.exceptions.FailedToRunRaspistillException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ import java.util.*;
  * <p>
  * Usage Example:
  * <pre>
- *{@code
+ * {@code
  * // Directory to save pictures to
  * String saveDir = "/home/pi/Pictures";
  *
@@ -34,24 +34,25 @@ import java.util.*;
  *
  * // Take a picture and save it as "/home/pi/Pictures/APicture.jpg"
  * camera.takeStill("APicture.jpg");
- *}
+ * }
  * </pre>
  *
  * @author Andrew Dillon
  */
 public class RPiCamera {
 
-    private String						prevCommand;
-    private String						saveDir;
-    private HashMap<String, String[]>	options	= new HashMap<>();
-    private ProcessBuilder				pb;
-    private Process						p;
-    private static final int DEFAULT_WIDTH  = 500;
+    private String prevCommand;
+    private String saveDir;
+    private HashMap<String, String[]> options = new HashMap<>();
+    private ProcessBuilder pb;
+    private Process p;
+    private static final int DEFAULT_WIDTH = 500;
     private static final int DEFAULT_HEIGHT = 500;
 
     /**
      * Creates new RPiCamera. The resulting RPiCamera's save directory will be set to
      * "/home/pi/Pictures" and will have a default image width and height of 500.
+     *
      * @throws FailedToRunRaspistillException
      */
     public RPiCamera() throws FailedToRunRaspistillException {
@@ -87,6 +88,7 @@ public class RPiCamera {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// Image Taking Methods //////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Takes an image of the specified width and height and saves it under the
      * specified name to the RPiCamera's save directory ("/home/pi/Pictures" by
@@ -95,7 +97,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Create an RPiCamera instance using default constructor, which sets the
      * // save directory to "/home/pi/Pictures".
      * RPiCamera piCamera = new RPiCamera()
@@ -103,12 +105,12 @@ public class RPiCamera {
      *
      * // Take a 500x500 PNG image and save it as "/home/pi/Pictures/AStillImage.png"
      * piCamera.takeStill("AStillImage.png", 500, 500);
-     *}
+     * }
      * </pre>
      *
      * @param pictureName A String containing the name to save picture under.
-     * @param width An int specifying the width of the image to take.
-     * @param height An int specifying the height of the image to take.
+     * @param width       An int specifying the width of the image to take.
+     * @param height      An int specifying the height of the image to take.
      * @return A File object representing the full path the picture was saved to.
      * @throws IOException
      * @throws InterruptedException
@@ -123,7 +125,7 @@ public class RPiCamera {
         command.add("-h");
         command.add("" + height);
         for (Map.Entry<String, String[]> entry : options.entrySet()) {
-            if (entry.getValue() != null        &&
+            if (entry.getValue() != null &&
                     !"width".equals(entry.getKey()) &&
                     !"height".equals(entry.getKey())) {
                 command.addAll(Arrays.asList(entry.getValue()));
@@ -150,7 +152,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Create an RPiCamera instance using default constructor, which sets the
      * // save directory to "/home/pi/Pictures".
      * RPiCamera piCamera = new RPiCamera()
@@ -158,7 +160,7 @@ public class RPiCamera {
      *
      * // Take a PNG image and save it as "/home/pi/Pictures/AStillImage.png"
      * piCamera.takeStill("AStillImage.png");
-     *}
+     * }
      * </pre>
      *
      * @param pictureName A String containing the name to save picture under.
@@ -179,7 +181,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Create an RPiCamera instance using default constructor, which sets the
      * // save directory to "/home/pi/Pictures".
      * RPiCamera piCamera = new RPiCamera()
@@ -187,10 +189,10 @@ public class RPiCamera {
      *
      * // Take a 500x500 PNG image and store it in a BufferedImage
      * BufferedImage buffImg = piCamera.takeBufferedStill(500, 500);
-     *}
+     * }
      * </pre>
      *
-     * @param width An int specifying width of image to take.
+     * @param width  An int specifying width of image to take.
      * @param height An int specifying height of image to take.
      * @return A BufferedImage containing the image.
      * @throws IOException
@@ -206,7 +208,7 @@ public class RPiCamera {
         command.add("-h");
         command.add("" + height);
         for (Map.Entry<String, String[]> entry : options.entrySet()) {
-            if (entry.getValue() != null        &&
+            if (entry.getValue() != null &&
                     !entry.getKey().equals("width") &&
                     !entry.getKey().equals("height")) {
                 Collections.addAll(command, entry.getValue());
@@ -245,7 +247,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Create an RPiCamera instance using default constructor, which sets the
      * // save directory to "/home/pi/Pictures".
      * RPiCamera piCamera = new RPiCamera()
@@ -253,8 +255,9 @@ public class RPiCamera {
      *
      * // Take a PNG image and store it in a BufferedImage
      * BufferedImage buffImg = piCamera.takeBufferedStill();
-     *}
+     * }
      * </pre>
+     *
      * @return A BufferedImage containing the image.
      * @throws IOException
      * @throws InterruptedException
@@ -287,7 +290,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Creating and setting up an RPiCamera
      * RPiCamera piCamera = new RPiCamera()
      *      .turnOffPreview()
@@ -308,8 +311,8 @@ public class RPiCamera {
      * }
      * </pre>
      *
-     * @param width An int specifying the width of the image to take (ideally a multiple of 16).
-     * @param height An int specifying the height of the image to take (ideally a multiple of 16).
+     * @param width       An int specifying the width of the image to take (ideally a multiple of 16).
+     * @param height      An int specifying the height of the image to take (ideally a multiple of 16).
      * @param keepPadding A boolean indicating whether or not to preserve the padding on an image.
      * @return An int array containing the image's RGB values.
      * @throws IOException
@@ -325,7 +328,7 @@ public class RPiCamera {
         command.add("-h");
         command.add("" + height);
         for (Map.Entry<String, String[]> entry : options.entrySet()) {
-            if (entry.getValue() != null        &&
+            if (entry.getValue() != null &&
                     !entry.getKey().equals("width") &&
                     !entry.getKey().equals("height")) {
                 Collections.addAll(command, entry.getValue());
@@ -418,7 +421,7 @@ public class RPiCamera {
      * <p>
      * Usage Example:
      * <pre>
-     *{@code
+     * {@code
      * // Creating and setting up an RPiCamera
      * RPiCamera piCamera = new RPiCamera()
      *     .turnOffPreview()
@@ -436,7 +439,7 @@ public class RPiCamera {
      * // Write the BufferedImage to a file as a JPEG
      * File file = new File("/home/pi/Desktop/A Cool Image.jpg");
      * ImageIO.write(image, "jpg", file);
-     *}
+     * }
      * </pre>
      *
      * @param keepPadding A boolean indicating whether or not to preserve the padding on an image.
@@ -485,11 +488,11 @@ public class RPiCamera {
      * }
      * </pre>
      *
-     * @param wait A boolean indicating whether to block the thread until timelapse is complete or not.
+     * @param wait        A boolean indicating whether to block the thread until timelapse is complete or not.
      * @param pictureName A String containing name for each captured image.
-     * @param time Period of time in milliseconds to wait between taking each image.
+     * @param time        Period of time in milliseconds to wait between taking each image.
      * @return If the link latest image property is set, the File images are being linked to,
-     * 		   otherwise returns null.
+     * otherwise returns null.
      * @throws IOException
      * @throws InterruptedException
      */
@@ -602,7 +605,7 @@ public class RPiCamera {
      * Turns off image preview.
      */
     public RPiCamera turnOffPreview() {
-        options.put("preview", new String[] { "-n" });
+        options.put("preview", new String[]{"-n"});
         return this;
     }
 
@@ -622,7 +625,7 @@ public class RPiCamera {
      * This feature is currently under development.
      */
     public RPiCamera setFullPreviewOn() {
-        options.put("fullpreview", new String[] { "-fp" });
+        options.put("fullpreview", new String[]{"-fp"});
         return this;
     }
 
@@ -644,7 +647,7 @@ public class RPiCamera {
      * @param h An int specifying height of preview window.
      */
     public RPiCamera turnOnPreview(int x, int y, int w, int h) {
-        options.put("preview", new String[] { "-p", "" + x + "," + y + "," + w + "," + h });
+        options.put("preview", new String[]{"-p", "" + x + "," + y + "," + w + "," + h});
         return this;
     }
 
@@ -655,7 +658,7 @@ public class RPiCamera {
      */
     public RPiCamera setPreviewFullscreen(boolean fullscreen) {
         if (fullscreen)
-            options.put("fullscreen", new String[] { "-f" });
+            options.put("fullscreen", new String[]{"-f"});
         else
             options.put("fullscreen", null);
         return this;
@@ -672,7 +675,7 @@ public class RPiCamera {
             opacity = 255;
         else if (opacity < 0)
             opacity = 0;
-        options.put("opacity", new String[] { "-op", "" + opacity });
+        options.put("opacity", new String[]{"-op", "" + opacity});
         return this;
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -695,7 +698,7 @@ public class RPiCamera {
             sharpness = 100;
         else if (sharpness < -100)
             sharpness = -100;
-        options.put("sharpness", new String[] { "-sh", "" + sharpness });
+        options.put("sharpness", new String[]{"-sh", "" + sharpness});
         return this;
     }
 
@@ -711,7 +714,7 @@ public class RPiCamera {
             contrast = 100;
         else if (contrast < -100)
             contrast = -100;
-        options.put("constast", new String[] { "-co", "" + contrast });
+        options.put("constast", new String[]{"-co", "" + contrast});
         return this;
     }
 
@@ -727,7 +730,7 @@ public class RPiCamera {
             brightness = 100;
         else if (brightness < 0)
             brightness = 0;
-        options.put("brightness", new String[] { "-br", "" + brightness });
+        options.put("brightness", new String[]{"-br", "" + brightness});
         return this;
     }
 
@@ -743,7 +746,7 @@ public class RPiCamera {
             saturation = 100;
         else if (saturation < -100)
             saturation = -100;
-        options.put("saturation", new String[] { "-sa", "" + saturation });
+        options.put("saturation", new String[]{"-sa", "" + saturation});
         return this;
     }
 
@@ -756,7 +759,7 @@ public class RPiCamera {
      * @param iso An int specifying the ISO.
      */
     public RPiCamera setISO(int iso) {
-        options.put("ISO", new String[] { "-ISO", "" + iso });
+        options.put("ISO", new String[]{"-ISO", "" + iso});
         return this;
     }
 
@@ -779,7 +782,7 @@ public class RPiCamera {
      * @param exposure An Exposure enum specifying the desired mode.
      */
     public RPiCamera setExposure(Exposure exposure) {
-        options.put("exposure", new String[] { "-ex", exposure.toString() });
+        options.put("exposure", new String[]{"-ex", exposure.toString()});
         return this;
     }
 
@@ -790,7 +793,7 @@ public class RPiCamera {
      * @param awb An AWB enum specifying the desired AWB setting.
      */
     public RPiCamera setAWB(AWB awb) {
-        options.put("awb", new String[] { "-awb", awb.toString() });
+        options.put("awb", new String[]{"-awb", awb.toString()});
         return this;
     }
 
@@ -801,7 +804,7 @@ public class RPiCamera {
      * @param imageEffect An ImageEffect enum specifying the desired effect.
      */
     public RPiCamera setImageEffect(ImageEffect imageEffect) {
-        options.put("imxfx", new String[] { "-ifx", imageEffect.toString() });
+        options.put("imxfx", new String[]{"-ifx", imageEffect.toString()});
         return this;
     }
 
@@ -822,7 +825,7 @@ public class RPiCamera {
             V = 255;
         else if (V < 0)
             V = 0;
-        options.put("colfx", new String[] { "-cfx", "" + U, ":", "" + V });
+        options.put("colfx", new String[]{"-cfx", "" + U, ":", "" + V});
         return this;
     }
 
@@ -832,7 +835,7 @@ public class RPiCamera {
      * @param meteringMode a MeteringMode enum specifying the desired mode.
      */
     public RPiCamera setMeteringMode(MeteringMode meteringMode) {
-        options.put("metering", new String[] { "-mm", meteringMode.toString() });
+        options.put("metering", new String[]{"-mm", meteringMode.toString()});
         return this;
     }
 
@@ -850,7 +853,7 @@ public class RPiCamera {
         else if (rotation < 0)
             while (rotation < 0)
                 rotation = rotation + 360;
-        options.put("rotation", new String[] { "-rot", "" + rotation });
+        options.put("rotation", new String[]{"-rot", "" + rotation});
         return this;
     }
 
@@ -858,7 +861,7 @@ public class RPiCamera {
      * Flips the preview and saved image horizontally.
      */
     public RPiCamera setHorizontalFlipOn() {
-        options.put("hflip", new String[] { "-hf" });
+        options.put("hflip", new String[]{"-hf"});
         return this;
     }
 
@@ -874,7 +877,7 @@ public class RPiCamera {
      * Flips the preview and saved image vertically.
      */
     public RPiCamera setVerticalFlipOn() {
-        options.put("vflip", new String[] { "-vf" });
+        options.put("vflip", new String[]{"-vf"});
         return this;
     }
 
@@ -916,7 +919,7 @@ public class RPiCamera {
             d = 1.0;
         else if (d < 0.0)
             d = 0.0;
-        options.put("roi", new String[] { "-roi", "" + x, ",", "" + y, ",", "" + w, ",", "" + d });
+        options.put("roi", new String[]{"-roi", "" + x, ",", "" + y, ",", "" + w, ",", "" + d});
         return this;
     }
 
@@ -933,7 +936,7 @@ public class RPiCamera {
             speed = 6000000;
         if (speed < 0)
             speed = 0;
-        options.put("shutter", new String[] { "-ss", "" + speed });
+        options.put("shutter", new String[]{"-ss", "" + speed});
         return this;
     }
 
@@ -947,7 +950,7 @@ public class RPiCamera {
      * @param drc A DRC enum specifying the desired DRC level.
      */
     public RPiCamera setDRC(DRC drc) {
-        options.put("drc", new String[] { "-drc", drc.toString() });
+        options.put("drc", new String[]{"-drc", drc.toString()});
         return this;
     }
 
@@ -974,7 +977,7 @@ public class RPiCamera {
      * @param width An int specifying the width.
      */
     public RPiCamera setWidth(int width) {
-        options.put("width", new String[] { "-w", "" + width });
+        options.put("width", new String[]{"-w", "" + width});
         return this;
     }
 
@@ -985,7 +988,7 @@ public class RPiCamera {
      * @param height An int specifying the height.
      */
     public RPiCamera setHeight(int height) {
-        options.put("height", new String[] { "-h", "" + height });
+        options.put("height", new String[]{"-h", "" + height});
         return this;
     }
 
@@ -1001,7 +1004,7 @@ public class RPiCamera {
             quality = 100;
         else if (quality < 0)
             quality = 0;
-        options.put("quality", new String[] { "-q", "" + quality });
+        options.put("quality", new String[]{"-q", "" + quality});
         return this;
     }
 
@@ -1012,7 +1015,7 @@ public class RPiCamera {
      */
     public RPiCamera setAddRawBayer(boolean add) {
         if (add)
-            options.put("raw", new String[] { "-r" });
+            options.put("raw", new String[]{"-r"});
         else
             options.put("raw", null);
         return this;
@@ -1024,12 +1027,12 @@ public class RPiCamera {
      * be easily accessed while the lapse is still running at the specified file,
      * while still saving all photos with their unique file names.
      *
-     * @param link turn on/off linking.
+     * @param link     turn on/off linking.
      * @param fileName fully qualified path to file to link images to.
      */
     public RPiCamera setLinkLatestImage(boolean link, String fileName) {
         if (link)
-            options.put("latest", new String[] { "-l", "" + fileName });
+            options.put("latest", new String[]{"-l", "" + fileName});
         else
             options.put("latest", null);
         return this;
@@ -1044,7 +1047,7 @@ public class RPiCamera {
      * @param time An int specifying the timeout in milliseconds.
      */
     public RPiCamera setTimeout(int time) {
-        options.put("timeout", new String[] { "-t", "" + time });
+        options.put("timeout", new String[]{"-t", "" + time});
         return this;
     }
 
@@ -1057,7 +1060,7 @@ public class RPiCamera {
      * @param quality
      */
     public RPiCamera setThumbnailParams(int x, int y, int quality) {
-        options.put("thumb", new String[] { "-th", "" + x, ":", "" + y, ":", "" + quality });
+        options.put("thumb", new String[]{"-th", "" + x, ":", "" + y, ":", "" + quality});
         return this;
     }
 
@@ -1065,7 +1068,7 @@ public class RPiCamera {
      * Turns off image thumbnails. Reduces image's file size slightly.
      */
     public RPiCamera turnOffThumbnail() {
-        options.put("thumb", new String[] { "-th", "none" });
+        options.put("thumb", new String[]{"-th", "none"});
         return this;
     }
 
@@ -1080,7 +1083,7 @@ public class RPiCamera {
      * @param encoding an Encoding enum specifying the desired image encoding.
      */
     public RPiCamera setEncoding(Encoding encoding) {
-        options.put("encoding", new String[] { "-e", encoding.toString() });
+        options.put("encoding", new String[]{"-e", encoding.toString()});
         return this;
     }
 
@@ -1104,7 +1107,7 @@ public class RPiCamera {
             camNumber = 0;
         else if (camNumber > 1)
             camNumber = 1;
-        options.put("camselect", new String[] { "-cs", "" + camNumber });
+        options.put("camselect", new String[]{"-cs", "" + camNumber});
         return this;
     }
 
@@ -1114,7 +1117,7 @@ public class RPiCamera {
      * capture.
      */
     public RPiCamera enableBurst() {
-        options.put("burst", new String[] { "-bm" });
+        options.put("burst", new String[]{"-bm"});
         return this;
     }
 
@@ -1131,15 +1134,15 @@ public class RPiCamera {
     /**
      * Replaces output pattern (%d) in save file name with DateTime (MonthDayHourMinSec).
      * E.g.
-     *<pre>{@code
+     * <pre>{@code
      * RPiCamera camera = new RPiCamera()
      *    .setDateTimeOn();
      * camera.takeStill("APicture%d.jpg", 500, 500);
-     *}</pre>
+     * }</pre>
      * Would produce a file named "APicture1223140756" if executed on Dec 23rd, at 14:07:56.
      */
     public RPiCamera setDateTimeOn() {
-        options.put("datetime", new String[] { "-dt" });
+        options.put("datetime", new String[]{"-dt"});
         return this;
     }
 
@@ -1154,15 +1157,15 @@ public class RPiCamera {
     /**
      * Replace output pattern (%d) with unix timestamp (seconds since 1970)
      * E.g.
-     *<pre>{@code
+     * <pre>{@code
      * RPiCamera camera = new RPiCamera()
      *     .setTimestampOn();
      * camera.takeStill("APicture%d.jpg", 500, 500);
-     *}</pre>
+     * }</pre>
      * Would produce a file named "APictureXXX", where XXX is the number of seconds since 1970.
      */
     public RPiCamera setTimestampOn() {
-        options.put("timestamp", new String[] { "-ts" });
+        options.put("timestamp", new String[]{"-ts"});
         return this;
     }
 
