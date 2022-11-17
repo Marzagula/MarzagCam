@@ -29,7 +29,6 @@ public class DetectorRunnable implements Runnable {
             int detectorPin = 18;
             while (running) {
                 if (getState(detectorPin).equals(GPIOState.HIGH)) {
-                    CameraClientApplication.log.info("Success, pin no: " + detectorPin);
                     try {
                         new Thread(cameraHandler.takePhoto("Detected " + new Date().toString() + ".jpeg")).run();
                     } catch (FailedToRunRaspistillException e) {
