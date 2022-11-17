@@ -1,11 +1,11 @@
-package com.marzag.cameraclient.util;
+package com.marzag.cameraclient.threading;
 
 import com.marzag.cameraclient.CameraClientApplication;
 import com.marzag.cameraclient.enums.GPIOState;
 import com.marzag.cameraclient.exceptions.FailedToRunRaspistillException;
+import com.marzag.cameraclient.util.CameraHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Date;

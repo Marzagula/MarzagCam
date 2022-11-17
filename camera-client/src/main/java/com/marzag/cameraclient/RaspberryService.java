@@ -2,7 +2,7 @@ package com.marzag.cameraclient;
 
 import com.marzag.cameraclient.exceptions.FailedToRunRaspistillException;
 import com.marzag.cameraclient.util.CameraHandler;
-import com.marzag.cameraclient.util.DetectorRunnable;
+import com.marzag.cameraclient.threading.DetectorRunnable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
