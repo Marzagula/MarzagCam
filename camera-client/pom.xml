@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.marzag</groupId>
 	<artifactId>camera-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>camera-client</name>
 	<description>MarzagCam server</description>
 	<properties>
@@ -30,6 +30,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-core -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
